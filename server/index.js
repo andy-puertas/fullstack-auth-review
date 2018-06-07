@@ -49,13 +49,17 @@ passport.use(new Auth0Strategy({
     
 }))
 
-passport.serializeUser((id, done) => {
-    done(null, id);
+passport.serializeUser((primaryKeyID, done) => {
+    done(null, primaryKeyID);
 })
 
-passport.deserializeUser((id, done) => {
-    done(null, id);
+passport.deserializeUser((primaryKeyID, done) => {
+    console.log(primaryKeyID);
+    app.get('db').find_session_user([primaryKeyID]).then(user => {
+        done(null, user[0]);
+    })
 })
+
 
 app.get('/auth', passport.authenticate('auth0'));
 app.get('/auth/callback', 
@@ -65,6 +69,7 @@ passport.authenticate('auth0', {
 
 app.get('/auth/logout', (req, res) => {
     req.logOut();
+    res.redirect('http://localhost:3330')
 })
 
 app.get('/auth/user', (req, res) => {

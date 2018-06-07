@@ -13,14 +13,14 @@ class Private extends Component {
 
     render() {
         console.log('props: ', this.props)
-        let { user_name, img, auth_id } = this.props.user;
+        let { user_name, picture, auth_id } = this.props.user;
         return (
             <div>
             <h2>Account Information:</h2>
             <hr />
             {user_name ? (
               <div>
-                <img src={img} alt="" />
+                <img src={picture} alt="" />
                 <p>Account Name: {user_name}</p>
                 <p>Account Number: {auth_id}</p>
                 <p>Balance: {this.bankBalance()}</p>
@@ -28,7 +28,7 @@ class Private extends Component {
             ) : (
               <p>Please login</p>
             )}
-            <a href="http://localhost:3005/logout">
+            <a href="http://localhost:3330/auth/logout">
               <button type="" className="">
                 logout
               </button>
