@@ -63,6 +63,10 @@ passport.authenticate('auth0', {
     successRedirect: 'http://localhost:3330/#/private'
 }));
 
+app.get('/auth/logout', (req, res) => {
+    req.logOut();
+})
+
 app.get('/auth/user', (req, res) => {
     if(req.user) {
         res.status(200).send(req.user);
