@@ -63,7 +63,13 @@ passport.authenticate('auth0', {
     successRedirect: 'http://localhost:3330/#/private'
 }));
 
-
+app.get('/auth/user', (req, res) => {
+    if(req.user) {
+        res.status(200).send(req.user);
+    } else {
+        res.status(200).send('WRONG')
+    }
+})
 
 app.listen(SERVER_PORT, () => {
     console.log(`Listening on port:`, SERVER_PORT)
